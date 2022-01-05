@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
   const initialFormState = {
@@ -6,6 +7,7 @@ const Login = () => {
     password: '',
   };
   const [{ email, password }, setFormState] = useState(initialFormState);
+  const { user, login, error } = useAuth();
 
   const handleFormChange = ({ target: { name, value } }) => {
     setFormState((prevState) => ({
@@ -14,20 +16,33 @@ const Login = () => {
     }));
   };
 
+  let loginSuccess;
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // login method from provider
+    loginSuccess = login(email, password);
   };
 
   return (
-    <form onChange={handleFormChange} onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit}>
       <fieldset>
         <legend>Welcome back!</legend>
         <label htmlFor="email">email</label>
-        <input value={email} type="email" name="email" />
+        <input
+          onChange={handleFormChange}
+          value={email}
+          type="email"
+          name="email"
+        />
         <label htmlFor="password">password</label>
-        <input value={password} type="password" name="password" />
+        <input
+          onChange={handleFormChange}
+          value={password}
+          type="password"
+          name="password"
+        />
         <button>Login</button>
+        {error}
       </fieldset>
     </form>
   );
