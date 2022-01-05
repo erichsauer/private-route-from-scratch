@@ -5,7 +5,18 @@ import useAuth from '../../hooks/useAuth';
 const ProtectedRoute = ({ children, ...rest }) => {
   const { user } = useAuth();
 
-  return user ? <Route {...rest}>{children}</Route> : <Redirect to={'/auth'} />;
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user ? (
+          children
+        ) : (
+          <Redirect to={{ pathname: '/auth', state: { from: location } }} />
+        )
+      }
+    />
+  );
 };
 
 export default ProtectedRoute;
