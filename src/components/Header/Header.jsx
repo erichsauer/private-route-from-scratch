@@ -1,13 +1,27 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
+  const { logout, user } = useAuth();
   return (
     <header>
-      <Link to="/auth">Auth</Link>
+      {user ? (
+        <button onClick={logout}>Log Out</button>
+      ) : (
+        <NavLink activeStyle={{ display: 'none' }} exact to="/auth">
+          Auth
+        </NavLink>
+      )}
       {'  '}
-      <Link to="/auth">Home</Link>
+      <NavLink activeStyle={{ display: 'none' }} exact to="/">
+        Home
+      </NavLink>
       {'  '}
-      <Link to="/auth">Guestbook</Link>
+      <NavLink activeStyle={{ display: 'none' }} exact to="/guestbook">
+        Guestbook
+      </NavLink>
+      {'  '}
+      {user && `Welcome, ${user}!`}
     </header>
   );
 };
