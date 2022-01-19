@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import EntryList from '../../components/EntryList/EntryList';
+import useAuth from '../../hooks/useAuth';
+import useEntries from '../../hooks/useEntries';
 
 const Guestbook = () => {
-  const [entries, setEntries] = useState([]);
+  const { entries, setEntries } = useEntries();
   const [entry, setEntry] = useState('');
+  const { user } = useAuth();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setEntries((prevState) => [entry, ...prevState]);
+    setEntries((prevState) => [{ entry, user, edit: false }, ...prevState]);
     setEntry('');
   };
 

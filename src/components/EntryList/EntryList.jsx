@@ -3,14 +3,14 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 
 const EntryList = ({ entries }) => {
-  const { user } = useAuth();
   return (
     <ul>
-      {entries.map((entry) => (
-        <li key={entry + Date.now()}>
-          "{entry}" - {user}
-        </li>
-      ))}
+      {entries.length > 0 &&
+        entries.map(({ entry, user, edit }, i) => (
+          <li key={entry + Date.now() + i}>
+            "{entry}" - {user}
+          </li>
+        ))}
     </ul>
   );
 };

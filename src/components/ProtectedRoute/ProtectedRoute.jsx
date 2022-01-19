@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
         user ? (
           children
         ) : (
-          <Redirect to={{ pathname: '/auth', state: { from: location } }} />
+          <Redirect to={{ pathname: '/login', state: { from: location } }} />
         )
       }
     />

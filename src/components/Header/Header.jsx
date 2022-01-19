@@ -8,7 +8,7 @@ const Header = () => {
       {user ? (
         <button onClick={logout}>Log Out</button>
       ) : (
-        <NavLink activeStyle={{ display: 'none' }} exact to="/auth">
+        <NavLink activeStyle={{ display: 'none' }} exact to="/login">
           Auth
         </NavLink>
       )}
